@@ -14,14 +14,14 @@ public class Main {
         Counter counter = new Counter(0);
         long startTime = System.currentTimeMillis();
 
-        ArrayList<Thread> dec=new ArrayList<>();
-        ArrayList<Thread> inc=new ArrayList<>();
+        ArrayList<Thread> dec = new ArrayList<>();
+        ArrayList<Thread> inc = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
             dec.add(new Decrementer(sem, counter));
-            dec.get(dec.size()-1).start();
+            dec.get(dec.size() - 1).start();
             inc.add(new Incrementer(sem, counter));
-            inc.get(dec.size()-1).start();
+            inc.get(dec.size() - 1).start();
         }
 
         try {
