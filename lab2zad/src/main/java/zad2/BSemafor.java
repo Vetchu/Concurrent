@@ -7,18 +7,21 @@ public class BSemafor implements Semafor {
     private int czeka = 0;
 
     public synchronized void P() {
-        if(!stan) {
+        if (!stan) {
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        if (!stan) {
+            System.out.println("Error: I should not be here.");
         }
         stan = false;
     }
 
     public synchronized void V() {
         stan = true;
-        notifyAll();
+        notify();
     }
 }

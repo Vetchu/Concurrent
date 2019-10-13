@@ -9,18 +9,19 @@ import java.util.ArrayList;
 
 public class BSemIfTest {
     @org.junit.Test
-    public void BSemTest() {
+    public void BSemIfTest() {
         Semafor sem = new BSemafor();
         Counter counter = new Counter(0);
-        ArrayList<Thread> dec=new ArrayList<>();
-        ArrayList<Thread> inc=new ArrayList<>();
+        ArrayList<Thread> dec = new ArrayList<>();
+        ArrayList<Thread> inc = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
             dec.add(new Decrementer(sem, counter));
-            dec.get(dec.size()-1).start();
+            dec.get(i).start();
             inc.add(new Incrementer(sem, counter));
-            inc.get(dec.size()-1).start();
+            inc.get(i).start();
         }
+//        sem.notify();
 
         try {
             for (int i = 0; i < 1000; i++) {
@@ -30,6 +31,7 @@ public class BSemIfTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(0, counter.counter);
+        System.out.println(counter.counter);
+        Assert.assertNotEquals(0, counter.counter);
     }
 }
