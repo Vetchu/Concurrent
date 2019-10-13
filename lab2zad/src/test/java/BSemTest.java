@@ -14,7 +14,6 @@ public class BSemTest {
         Thread b = new Incrementer(sem, counter);
         b.start();
         a.start();
-        sem.notify();
 
         try {
             a.join();

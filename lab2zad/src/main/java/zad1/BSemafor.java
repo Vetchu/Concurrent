@@ -4,11 +4,6 @@ import common.Semafor;
 
 public class BSemafor implements Semafor {
     private boolean stan = true;
-    private int czeka = 0;
-
-    public BSemafor() {
-
-    }
 
     public synchronized void P() {
         while (!stan) {
