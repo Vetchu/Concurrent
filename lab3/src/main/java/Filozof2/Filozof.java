@@ -1,11 +1,12 @@
 package Filozof2;
 
 import java.util.concurrent.Semaphore;
-
+import utils.TimeCounter;
 import static java.lang.Thread.sleep;
 
 public class Filozof extends Thread {
     private final int count;
+    private TimeCounter counter;
     private Semaphore left, right, table;
     private Integer mynumber;
 
@@ -15,11 +16,13 @@ public class Filozof extends Thread {
         this.table = table;
         this.mynumber = num;
         this.count=count;
+        counter = new TimeCounter(this.mynumber);
     }
 
     @Override
     public void run() {
         for (int i = 0; i < count; i++) {
+            counter.startCount();
             try {
                 while (true) {
                     table.acquire();
@@ -27,6 +30,7 @@ public class Filozof extends Thread {
                         left.acquire();
                         right.acquire();
                         table.release();
+                        counter.endCount();
                         break;
                     }
                     table.release();
@@ -36,7 +40,7 @@ public class Filozof extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("FILOZOF JEM" + mynumber.toString());
+//            System.out.println("FILOZOF JEM" + mynumber.toString());
             left.release();
             right.release();
         }
