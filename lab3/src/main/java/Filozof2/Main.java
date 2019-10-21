@@ -15,7 +15,7 @@ public class Main {
         }
 
         for (int i = 0; i < 5; i++) {
-            fil.add(new Filozof(sem.get(i), sem.get((i+1)%5),i,table));
+            fil.add(new Filozof(sem.get(i), sem.get((i+1)%5),i,table,20));
             fil.get(i).start();
         }
     }

@@ -5,19 +5,21 @@ import java.util.concurrent.Semaphore;
 import static java.lang.Thread.sleep;
 
 public class Filozof extends Thread {
+    private final int count;
     private Semaphore left, right, table;
     private Integer mynumber;
 
-    Filozof(Semaphore left, Semaphore right, int num, Semaphore table) {
+    Filozof(Semaphore left, Semaphore right, int num, Semaphore table,int count) {
         this.left = left;
         this.right = right;
         this.table = table;
         this.mynumber = num;
+        this.count=count;
     }
 
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < count; i++) {
             try {
                 while (true) {
                     table.acquire();
